@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type"
+        content="text/html; charset=UTF=8">
+    <title>HackerRank日本語コンテストまとめ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="title">HackerRank日本語コンテストまとめ</div>
+        <div class="container-fluid navi">
+            <div class="row">
+                <div class="col-sm-3"><a href="http://localhost:3000/">コンテスト一覧</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/new">新着コンテスト</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/add">コンテスト追加</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/contact">お問い合わせ</a></div>
+            </div>
+        </div>
+    </header>
+    <div role="main">
+        <h1 style="text-align: center;">新着コンテスト</h1>
+		<p style ="text-align: center;font-size: 15px;">このサイトに登録された日時が最近のものから並んでいます</p>
+        <% contests.forEach((contest)=>{ %>
+            <div class="contest">
+                <% var url = "https://www.hackerrank.com/" + contest.contest_url; %>
+                <a href= <%= url %> ><%= contest.contest_name %></a>
+                <div class="date">コンテスト日: <%= contest.start_time %> (<%= contest.duration %> minutes)</div>
+                <div class="writer">writer: <%= contest.writer.join(", ") %></div>
+            </div>
+        <% }) %>
+    </div>
+    <style type="text/css">
+    header{
+      z-index: 10;
+    　height: 64px;
+      top: 300px;
+      background-color: #333;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+      font-size: 25px;
+    }
+    .navi{
+        margin: 10px;
+    }
+    body{
+      font-family: 'Arial', sans-serif;
+      font-size: 30px;
+      background-color: whitesmoke;
+    }
+    .title{
+        font-size: 60px;
+        text-align: center;
+        color: rgb(59,66,77);
+    	background-color: palegreen;
+    }
+    .contest{
+    	margin: 20px;
+    	font-size: 20px;
+    	width: 600px;
+    	background-color: white;
+    	text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type"
+        content="text/html; charset=UTF=8">
+    <title>HackerRank日本語コンテストまとめ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="title">HackerRank日本語コンテストまとめ</div>
+        <div class="container-fluid navi">
+            <div class="row">
+                <div class="col-sm-3"><a href="http://localhost:3000/">コンテスト一覧</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/new">新着コンテスト</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/add">コンテスト追加</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/contact">お問い合わせ</a></div>
+            </div>
+        </div>
+    </header>
+    <div role="main">
+        <h1 style="text-align: center;">コンテスト一覧</h1>
+        <p style ="text-align: center;font-size: 15px;">コンテスト日時が最近のものから並んでいます</p>
+        <% contests.forEach((contest)=>{ %>
+            <div class="contest">
+                <% var url = "https://www.hackerrank.com/" + contest.contest_url; %>
+                <a href= <%= url %> ><%= contest.contest_name %></a>
+                <div class="date">コンテスト日: <%= contest.start_time %> (<%= contest.duration %> minutes)</div>
+                <div class="writer">writer: <%= contest.writer.join(", ") %></div>
+            </div>
+        <% }) %>
+    </div>
+
+</body>
+</html>

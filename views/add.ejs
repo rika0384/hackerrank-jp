@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type"
+        content="text/html; charset=UTF=8">
+    <title>HackerRank日本語まとめ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+        <div class="title">HackerRank日本語コンテストまとめ</div>
+        <div class="container-fluid navi">
+            <div class="row">
+                <div class="col-sm-3"><a href="http://localhost:3000/">コンテスト一覧</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/new">新着コンテスト</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/add">コンテスト追加</a></div>
+                <div class="col-sm-3"><a href="http://localhost:3000/contact">お問い合わせ</a></div>
+            </div>
+        </div>
+    </header>
+    <div class="container" role="main">
+    	<h1 style="text-align: center;">コンテスト追加</h1>
+		<p>コンテストURLの 'https://www.hackerrank.com/'以下の部分とwriterの情報を送信してください</p>
+		<p>writerはカンマ区切りでお願いします（例：'chokudai, snuke'）</p>
+		<p>クォーテーションはいりません</p>
+        <div class="row" style="margin-top: 20px;">
+            <form action="/insert" method="post">
+                <div class="col-sm-3">コンテスト名 (必須)</div>
+                <div class="col-sm-9 form-group">
+                    <input type="text" class="form-control" name="contest_url" placeholder="yfkpo2" required/>
+                </div>
+                <div class="col-sm-3">Writer</div>
+                <div class="col-sm-9 form-group">
+                    <input type="text" class="form-control" name="writer" placeholder="prd_xxx, matsu7874" />
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 form-group">
+                    <button type="submit" class="form-control btn-primary">登録</button>
+                </div>
+                <div class="col-sm-4"></div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
