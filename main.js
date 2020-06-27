@@ -40,13 +40,9 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }))
-const api_url = "http://localhost:3000/contest";
+const base_url = "http://localhost:3000";
 const hackerrank_url = "https://www.hackerrank.com/";
-var options = {
-    url: api_url,
-    method: 'GET',
-    json: true
-}
+/*
 var contest = [{"contest_id":1,"contest_name":"ゆるふわ競技プログラミングオンサイト at FORCIA #2 ゴリラの挑戦状","contest_url":"yfkpo2","contest_date":"2019-09-13","writer":"prd_xxx, matsu7874"},
 {"contest_id":2,"contest_name":"ゆるふわ競プロオンサイト #3 (Div. 1)","contest_url":"yfkpo3-1","contest_date":"2020-02-29","writer":"?"},
 {"contest_id":3,"contest_name":"ゆるふわ競プロオンサイト #3 (Div. 2)","contest_url":"yfkpo3-2","contest_date":"2020-02-29","writer":"?"},
@@ -54,19 +50,23 @@ var contest = [{"contest_id":1,"contest_name":"ゆるふわ競技プログラミ
 {"contest_id":5,"contest_name":"EEIC Programming Contest #1","contest_url":"eeic-programming-contest-1","contest_date":"2020-05-26","writer":"dividebyzero, holeguma, Nyaan, soshun"},
 {"contest_id":6,"contest_name":"EEIC Programming Contest #2","contest_url":"eeic-programming-contest-2","contest_date":"2022-02-28","writer":"EmoMoegi, Mojumbo, divideby0x00"}
 ];
-
+*/
 
 
 app.get('/', async(req, res) => {
 	new Promise(async(resolve, reject) => {
-		await request(options, function (error, response, body) {
+		await request({
+		    url: base_url + "/contest",
+		    method: 'GET',
+		    json: true
+		}, function (error, response, body) {
 			//contest = response.body;
 			resolve(response.body);
 		});
 	}).then(contest => {
 		//console.log(contest.length);
 		contest.sort(function(a,b) {
-	    	return (a.contest_date < b.contest_date ? 1 : -1);
+	    	return (a.start_time < b.start_time ? 1 : -1);
 		});
 		res.render('./index.ejs',{
 				contests:contest
@@ -77,7 +77,11 @@ app.get('/', async(req, res) => {
 
 app.get('/new', (req, res) => {
 	new Promise(async(resolve, reject) => {
-		await request(options, function (error, response, body) {
+		await request({
+		    url: base_url + "/contest",
+		    method: 'GET',
+		    json: true
+		}, function (error, response, body) {
 			//contest = response.body;
 			resolve(response.body);
 		});
@@ -93,7 +97,9 @@ app.get('/new', (req, res) => {
 });
 
 app.get('/add', (req, res) => {
-    res.render('./add.ejs');
+    res.render('./add.ejs',{
+		message:""
+	});
 });
 
 app.get('/contact', (req, res) => {
@@ -111,7 +117,9 @@ app.get("/contest",async (req, res)=>{
 				contest.forEach(item => {
 					const jstDate = new Date(item["start_time"].toLocaleString({ timeZone: 'Asia/Tokyo' }));
 
-					const [y, m, d] = [jstDate.getFullYear(), jstDate.getMonth()+1, jstDate.getDate()];
+					const y = ("" + jstDate.getFullYear()).padStart(4, "0");
+					const m = ("" + (jstDate.getMonth() + 1)).padStart(2, "0");
+					const d = ("" + jstDate.getDate()).padStart(2, "0");
 					item.start_time = [y, m, d].join('-');
 				});
 				//console.log(contest);
@@ -121,6 +129,24 @@ app.get("/contest",async (req, res)=>{
 	});
 });
 
+app.post("/submit",async(req,res)=>{
+	//insertを呼び出す
+	new Promise(async(resolve, reject) => {
+		await request({
+		    url: base_url + "/insert",
+		    method: 'POST',
+		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
+		}, function (error, response, body) {
+			//contest = response.body;
+			resolve(response.body);
+		});
+	}).then(response => {
+		res.render('./add.ejs',{
+				message:response.message
+			});
+	});
+
+});
 
 app.post("/insert",async(req,res) =>{
 	//正しいURLであるかチェックし、contest_nameとcontest_dateを取得する
@@ -129,15 +155,16 @@ app.post("/insert",async(req,res) =>{
 	//const writer = "?";
 	//const contest_name = "ゆるふわ競プロオンサイト #3 (Div. 1)";//取得する
 	//const contest_date = "2020-02-29";//取得する
+	console.log(req.body);
 	const contest_url = req.body.contest_url;
 	let writer = req.body.writer.trim().split(/\s*,\s*/);//カンマ区切りで入力されているので、配列に整形する
 
 	const access_url = hackerrank_url + contest_url;
 	new Promise(async(resolve, reject) => {
 		await request({
-			url: "http://localhost:3000/fetchContest",
-	    	method: 'POST',
-	    	json:{"url":access_url}
+			url: base_url + "/fetchContest",
+			method: 'POST',
+			json:{"url":access_url}
 		}, function (error, response, body) {
 			//console.log(response.body);
 			resolve(response.body);
@@ -192,7 +219,7 @@ app.post("/fetchContest", (req, res) => {
 	(async() => {
 		//console.log(req.body); // リクエスト本文をロギング console.log(req.query);
 		const url = req.body.url;
-		//console.log(url);
+		console.log(url);
 
 		const browser = await puppeteer.launch();
 	    const page = await browser.newPage();

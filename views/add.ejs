@@ -21,12 +21,17 @@
         </div>
     </header>
     <div class="container" role="main">
+        <% if(message != ""){ %>
+            <div class="alert alert-info">
+                <%= message %>
+            </div>
+        <% } %>
     	<h1 style="text-align: center;">コンテスト追加</h1>
 		<p>コンテストURLの 'https://www.hackerrank.com/'以下の部分とwriterの情報を送信してください</p>
 		<p>writerはカンマ区切りでお願いします（例：'chokudai, snuke'）</p>
 		<p>クォーテーションはいりません</p>
         <div class="row" style="margin-top: 20px;">
-            <form action="/insert" method="post">
+            <form action="/submit" method="post">
                 <div class="col-sm-3">コンテスト名 (必須)</div>
                 <div class="col-sm-9 form-group">
                     <input type="text" class="form-control" name="contest_url" placeholder="yfkpo2" required/>
