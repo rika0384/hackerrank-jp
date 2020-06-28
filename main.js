@@ -205,7 +205,7 @@ app.post("/insert",async(req,res) =>{
 		//console.log("return",response)
 		if(response.status == false || response.start_time == null || response.contest_name == null){
 			console.log("fetchContestAPI失敗");
-			return res.send({"message":"不正なURLが入力されました"});
+			return res.send({"message":"コンテスト情報の取得に失敗しました"});
 		}
 		const contest_name = response.contest_name;
 		const start_time = response.start_time;
@@ -253,11 +253,11 @@ app.post("/fetchContest", (req, res) => {
 		//console.log(req.body); // リクエスト本文をロギング console.log(req.query);
 		const url = req.body.url;
 		console.log(url);
-
-		const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium-browser',args: ['--no-sandbox']});
-	    const page = await browser.newPage();
-		await preparePageForTests(page);
 		try{
+			const browser = await puppeteer.launch({args: ['--no-sandbox']});
+		    const page = await browser.newPage();
+			await preparePageForTests(page);
+
 			const response = await page.goto(url); // ページへ移動
 
 			// コンテスト名と日時を取得する
