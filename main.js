@@ -168,10 +168,7 @@ app.post("/insert",async(req,res) =>{
 		});
 	}).then(response => {
 		console.log("return",response)
-		if(response.start_time == ""){
-			console.log("test",response.status);
-		}
-		if(response.status == false || response.start_time == "" || response.contest_name == ""){
+		if(response.status == false || response.start_time == null || response.contest_name == null){
 			console.log("fetchContestAPI失敗");
 			return res.send({"message":"不正なURLが入力されました"});
 		}
