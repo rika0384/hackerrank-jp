@@ -52,6 +52,7 @@ app.get('/', async(req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
+			console.log(response);
 			resolve(response.body);
 		});
 	}).then(contest => {

@@ -39,6 +39,8 @@ body,p{
 .marquee {
   overflow:hidden;
   margin:1em 0;
+  margin-bottom: 500px;
+  margin-top: 500px;
 }
 
 .marquee p {
@@ -55,7 +57,4 @@ body,p{
 @keyframes marquee {
   from { transform:translate(0);     }
   to   { transform:translate(-100%); }
-}
-.usa{
-    margin-bottom: 500px;
 }
