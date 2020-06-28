@@ -40,8 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }))
-const base_url = "http://localhost:3000";
-//const base_url = "https://hackerrank-jp.herokuapp.com";
+//const base_url = "http://localhost:3000";
+const base_url = "https://hackerrank-jp.herokuapp.com";
 const hackerrank_url = "https://www.hackerrank.com/";
 
 
@@ -52,7 +52,6 @@ app.get('/', async(req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
-			//contest = response.body;
 			resolve(response.body);
 		});
 	}).then(contest => {
@@ -75,7 +74,6 @@ app.get('/new', (req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
-			//contest = response.body;
 			resolve(response.body);
 		});
 	}).then(contest => {
