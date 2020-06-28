@@ -57,10 +57,10 @@ app.get('/', async(req, res) => {
 	}).then(contest => {
 		//console.log(contest.length);
 		console.log(Array.isArray(contest));
+		console.log(contest)
 		contest.sort(function(a,b) {
 	    	return (a.start_time < b.start_time ? 1 : -1);
 		});
-		console.log(contest)
 		res.render('./index.ejs',{
 				contests:contest
 			});
