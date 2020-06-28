@@ -23,7 +23,8 @@
     <div role="main">
         <h1 style="text-align: center;">コンテスト一覧</h1>
         <p style ="text-align: center;font-size: 15px;">コンテスト日時が最近のものから並んでいます</p>
-        <% contests.forEach((contest)=>{ %>
+        <% Object.keys(contests).forEach((contest)=>{ %>
+            <% contest = contests[contest] %>
             <div class="contest">
                 <% var url = "https://www.hackerrank.com/" + contest.contest_url; %>
                 <a href= <%= url %> ><%= contest.contest_name %></a>
