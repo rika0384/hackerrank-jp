@@ -254,7 +254,7 @@ app.post("/fetchContest", (req, res) => {
 		const url = req.body.url;
 		console.log(url);
 		try{
-			const browser = await puppeteer.launch({args: ['--no-sandbox']});
+			const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium-browser',args: ['--no-sandbox']});
 		    const page = await browser.newPage();
 			await preparePageForTests(page);
 
