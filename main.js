@@ -52,6 +52,7 @@ app.get('/', async(req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
+			console.log("/ response")
 			console.log(response);
 			resolve(response.body);
 		});
@@ -166,7 +167,11 @@ app.post("/insert",async(req,res) =>{
 			resolve(response.body);
 		});
 	}).then(response => {
-		if(response.status == false){
+		console.log("return",response)
+		if(response.start_time == ""){
+			console.log("test",response.status);
+		}
+		if(response.status == false || response.start_time == "" || response.contest_name == ""){
 			console.log("fetchContestAPI失敗");
 			return res.send({"message":"不正なURLが入力されました"});
 		}
