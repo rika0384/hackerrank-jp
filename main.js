@@ -40,8 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }))
-//const base_url = "http://localhost:3000";
-const base_url = "https://hackerrank-jp.herokuapp.com";
+const base_url = "http://localhost:3000";
+//const base_url = "https://hackerrank-jp.herokuapp.com";
 const hackerrank_url = "https://www.hackerrank.com/";
 
 
@@ -57,9 +57,10 @@ app.get('/', async(req, res) => {
 		});
 	}).then(contest => {
 		//console.log(contest.length);
-		Object.keys(contest).sort(function(a,b) {
+		contest.sort(function(a,b) {
 	    	return (a.start_time < b.start_time ? 1 : -1);
 		});
+		console.log(contest)
 		res.render('./index.ejs',{
 				contests:contest
 			});
@@ -79,9 +80,10 @@ app.get('/new', (req, res) => {
 		});
 	}).then(contest => {
 		//console.log(contest.length);
-		Object.keys(contest).sort(function(a,b) {
+		contest.sort(function(a,b) {
 			return (a.contest_id < b.contest_id ? 1 : -1);
 		});
+		console.log(contest)
 		res.render('./new.ejs',{
 				contests:contest
 			});
