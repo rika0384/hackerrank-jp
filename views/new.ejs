@@ -20,6 +20,11 @@
         </div>
     </header>
     <div role="main">
+        <% if(message != ""){ %>
+            <div class="alert alert-info">
+                <%= message %>
+            </div>
+        <% } %>
         <h1 style="text-align: center;">新着コンテスト</h1>
 		<p style ="text-align: center;font-size: 15px;">このサイトに登録された日時が最近のものから並んでいます</p>
         <% Object.keys(contests).forEach((contest)=>{ %>

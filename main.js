@@ -52,20 +52,33 @@ app.get('/', async(req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
-			console.log("/ response")
-			console.log(response);
+			if(response == undefined){
+				console.log("コンテスト情報の取得に失敗しました");
+				return res.render('./index.ejs',{
+						contests: [],
+						message:"コンテスト情報の取得に失敗しました。リロードしてください。"
+					});
+			}
+
 			resolve(response.body);
 		});
 	}).then(contest => {
 		//console.log(contest.length);
-		console.log(Array.isArray(contest));
-		console.log(contest)
-		contest.sort(function(a,b) {
-	    	return (a.start_time < b.start_time ? 1 : -1);
-		});
-		res.render('./index.ejs',{
-				contests:contest
+		if(contest[0].contest_id == undefined){
+			console.log("コンテスト情報の取得に失敗しました");
+			res.render('./index.ejs',{
+					contests:[],
+					"message":"コンテスト情報の取得に失敗しました。リロードしてください。"
+				});
+		}else{
+			contest.sort(function(a,b) {
+		    	return (a.start_time < b.start_time ? 1 : -1);
 			});
+			res.render('./index.ejs',{
+					contests:contest,
+					message:""
+				});
+		}
 	});
 });
 
@@ -77,17 +90,31 @@ app.get('/new', (req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
+			if(response == undefined){
+				console.log("コンテスト情報の取得に失敗しました");
+				return res.render('./new.ejs',{
+						contests: [],
+						message:"コンテスト情報の取得に失敗しました。リロードしてください。"
+					});
+			}
 			resolve(response.body);
 		});
 	}).then(contest => {
-		//console.log(contest.length);
-		contest.sort(function(a,b) {
-			return (a.contest_id < b.contest_id ? 1 : -1);
-		});
-		console.log(contest)
-		res.render('./new.ejs',{
-				contests:contest
+		if(contest[0].contest_id == undefined){
+			console.log("コンテスト情報の取得に失敗しました");
+			res.render('./new.ejs',{
+					contests:[],
+					"message":"コンテスト情報の取得に失敗しました。リロードしてください。"
+				});
+		}else{
+			contest.sort(function(a,b) {
+				return (a.contest_id < b.contest_id ? 1 : -1);
 			});
+			res.render('./new.ejs',{
+					contests:contest,
+					message:""
+				});
+		}
 	});
 });
 
@@ -109,8 +136,8 @@ app.get("/contest",async (req, res)=>{
 	     	client.query('SELECT * FROM contest;', (err, result) => {
 				if(err)console.log(err)
 				let contest = result.rows;
-				console.log("select result")
-				console.log(contest)
+				//console.log("select result")
+				//console.log(contest)
 				contest.forEach(item => {
 					const jstDate = new Date(item["start_time"].toLocaleString({ timeZone: 'Asia/Tokyo' }));
 
@@ -134,12 +161,17 @@ app.post("/submit",async(req,res)=>{
 		    method: 'POST',
 		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
 		}, function (error, response, body) {
+			if(response == undefined){
+				return res.render('./add.ejs',{
+						"message":"エラーが発生しました"
+					});
+			}
 			//contest = response.body;
 			resolve(response.body);
 		});
 	}).then(response => {
 		res.render('./add.ejs',{
-				message:response.message
+				"message":response.message
 			});
 	});
 
@@ -164,10 +196,13 @@ app.post("/insert",async(req,res) =>{
 			json:{"url":access_url}
 		}, function (error, response, body) {
 			//console.log(response.body);
+			if(response == undefined){
+				return res.send({"message":"エラーが発生しました"});
+			}
 			resolve(response.body);
 		});
 	}).then(response => {
-		console.log("return",response)
+		//console.log("return",response)
 		if(response.status == false || response.start_time == null || response.contest_name == null){
 			console.log("fetchContestAPI失敗");
 			return res.send({"message":"不正なURLが入力されました"});
@@ -219,7 +254,7 @@ app.post("/fetchContest", (req, res) => {
 		const url = req.body.url;
 		console.log(url);
 
-		const browser = await puppeteer.launch();
+		const browser = await puppeteer.launch({executablePath: '/usr/bin/chromium-browser',args: ['--no-sandbox']});
 	    const page = await browser.newPage();
 		await preparePageForTests(page);
 		try{
