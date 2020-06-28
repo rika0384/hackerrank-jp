@@ -57,7 +57,7 @@ app.get('/', async(req, res) => {
 		});
 	}).then(contest => {
 		//console.log(contest.length);
-		contest.sort(function(a,b) {
+		Object.keys(contest).sort(function(a,b) {
 	    	return (a.start_time < b.start_time ? 1 : -1);
 		});
 		res.render('./index.ejs',{
@@ -79,7 +79,7 @@ app.get('/new', (req, res) => {
 		});
 	}).then(contest => {
 		//console.log(contest.length);
-		contest.sort(function(a,b) {
+		Object.keys(contest).sort(function(a,b) {
 			return (a.contest_id < b.contest_id ? 1 : -1);
 		});
 		res.render('./new.ejs',{
