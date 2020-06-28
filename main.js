@@ -108,6 +108,8 @@ app.get("/contest",async (req, res)=>{
 	     	client.query('SELECT * FROM contest;', (err, result) => {
 				if(err)console.log(err)
 				let contest = result.rows;
+				console.log("select result")
+				console.log(contest)
 				contest.forEach(item => {
 					const jstDate = new Date(item["start_time"].toLocaleString({ timeZone: 'Asia/Tokyo' }));
 
