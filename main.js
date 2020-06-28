@@ -1,9 +1,9 @@
 
 require('dotenv').config();
-const port = process.env.ENV_PORT || 3000,
-	express = require("express"),
-	app = express(),
-	db = require("./db/db");
+const port = process.env.ENV_PORT || 3000;
+const express = require("express");
+const app = express();
+const db = require("./db/db");
 const http = require("http");
 const request = require("request");
 const puppeteer = require('puppeteer');
@@ -42,15 +42,6 @@ app.use(express.urlencoded({
 }))
 const base_url = "http://localhost:3000";
 const hackerrank_url = "https://www.hackerrank.com/";
-/*
-var contest = [{"contest_id":1,"contest_name":"ゆるふわ競技プログラミングオンサイト at FORCIA #2 ゴリラの挑戦状","contest_url":"yfkpo2","contest_date":"2019-09-13","writer":"prd_xxx, matsu7874"},
-{"contest_id":2,"contest_name":"ゆるふわ競プロオンサイト #3 (Div. 1)","contest_url":"yfkpo3-1","contest_date":"2020-02-29","writer":"?"},
-{"contest_id":3,"contest_name":"ゆるふわ競プロオンサイト #3 (Div. 2)","contest_url":"yfkpo3-2","contest_date":"2020-02-29","writer":"?"},
-{"contest_id":4,"contest_name":"EEIC Programming Contest #0","contest_url":"eeic-programming-contest-0","contest_date":"2019-12-18","writer":"EmoMoegi, Mojumbo, soshun"},
-{"contest_id":5,"contest_name":"EEIC Programming Contest #1","contest_url":"eeic-programming-contest-1","contest_date":"2020-05-26","writer":"dividebyzero, holeguma, Nyaan, soshun"},
-{"contest_id":6,"contest_name":"EEIC Programming Contest #2","contest_url":"eeic-programming-contest-2","contest_date":"2022-02-28","writer":"EmoMoegi, Mojumbo, divideby0x00"}
-];
-*/
 
 
 app.get('/', async(req, res) => {
