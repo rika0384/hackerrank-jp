@@ -26,7 +26,7 @@
     "node-fetch": "^2.6.0",
     "pg": "^8.2.1",
     "pg-promise": "^10.5.7",
-    "puppeteer": "^4.0.1",
+    "puppeteer": "github:jontewks/puppeteer",
     "reqest": "0.0.1-security",
     "request": "^2.88.2",
     "sync-request": "^6.1.0"
