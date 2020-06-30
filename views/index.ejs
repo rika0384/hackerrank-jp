@@ -31,7 +31,6 @@
         <% Object.keys(contests).forEach((contest)=>{ %>
             <% contest = contests[contest] %>
             <% contest.writer = Object.values(contest.writer)%>
-            <% console.log(contest)%>
             <div class="contest">
                 <% var url = "https://www.hackerrank.com/" + contest.contest_url; %>
                 <a href= <%= url %> ><%= contest.contest_name %></a>
