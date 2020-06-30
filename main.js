@@ -40,7 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }))
-//const base_url = "http://localhost:3000";
+const base_url_localhost = "http://localhost:3000";
 const base_url = "https://hackerrank-jp.herokuapp.com";
 const hackerrank_url = "https://www.hackerrank.com/";
 
@@ -191,7 +191,7 @@ app.post("/insert",async(req,res) =>{
 	const access_url = hackerrank_url + contest_url;
 	new Promise(async(resolve, reject) => {
 		await request({
-			url: base_url + "/fetchContest",
+			url: base_url_localhost + "/fetchContest",
 			method: 'POST',
 			json:{"url":access_url}
 		}, function (error, response, body) {
