@@ -157,7 +157,7 @@ app.post("/submit",async(req,res)=>{
 	//insertを呼び出す
 	new Promise(async(resolve, reject) => {
 		await request({
-		    url: base_url + "/insert",
+		    url: base_url_localhost + "/insert",
 		    method: 'POST',
 		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
 		}, function (error, response, body) {
@@ -196,6 +196,7 @@ app.post("/insert",async(req,res) =>{
 			json:{"url":access_url}
 		}, function (error, response, body) {
 			//console.log(response.body);
+			if(error) console.log(error)
 			if(response == undefined){
 				return res.send({"message":"エラーが発生しました"});
 			}
@@ -267,7 +268,7 @@ app.post("/fetchContest", (req, res) => {
 			browser.close();
 
 			let startTimezone, endTimezone;
-			//console.log(title, startTime, endTime);
+			console.log(title, startTime, endTime);
 			[startTime, startTimezone] = splitDateString(startTime);
 			[endTime, endTimezone] = splitDateString(endTime);
 			//console.log(startTime, endTime);
