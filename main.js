@@ -195,7 +195,7 @@ app.post("/insert",async(req,res) =>{
 			method: 'POST',
 			json:{"url":access_url}
 		}, function (error, response, body) {
-			//console.log(response.body);
+			console.log(response);
 			if(error) console.log(error)
 			if(response == undefined){
 				return res.send({"message":"エラーが発生しました"});
