@@ -52,6 +52,7 @@ app.get('/', async(req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
+			if (error) throw new Error(error);
 			if(response == undefined){
 				console.log("コンテスト情報の取得に失敗しました");
 				return res.render('./index.ejs',{
@@ -90,6 +91,7 @@ app.get('/new', (req, res) => {
 		    method: 'GET',
 		    json: true
 		}, function (error, response, body) {
+			if (error) throw new Error(error);
 			if(response == undefined){
 				console.log("コンテスト情報の取得に失敗しました");
 				return res.render('./new.ejs',{
@@ -162,6 +164,7 @@ app.post("/submit",async(req,res)=>{
 		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
 		}, function (error, response, body) {
 			if(error)console.log(error)
+			if (error) throw new Error(error);
 			if(response == undefined){
 				console.log("submit response undefined");
 				return res.render('./add.ejs',{
@@ -199,6 +202,7 @@ app.post("/insert",async(req,res) =>{
 		}, function (error, response, body) {
 			console.log(response);
 			if(error) console.log(error)
+			if (error) throw new Error(error);
 			if(response == undefined){
 				console.log("insert response undefined");
 				return res.send({"message":"エラーが発生しました"});
