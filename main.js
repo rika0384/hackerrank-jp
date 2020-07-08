@@ -224,10 +224,14 @@ app.post("/insert",async(req,res) =>{
 		db.pool.connect((err, client) => {
 			if(err){
 			  console.log("DB接続失敗" + err);
+			  throw new Error(err);
 			}else{
 				//contest_urlと等しいものがDBに存在していたらエラーを出し、そうでなければDBにinsertする
 				client.query('SELECT * FROM contest WHERE contest_url = $1;',[contest_url], (err, result) => {
-				if(err)console.log("select失敗" + err);
+				if(err){
+					console.log("select失敗" + err);
+					throw new Error(err);
+				}
 				if(result.rows.length > 0){
 					//コンテストがすでに登録されているのでエラーを出す
 					res.send({"message":"このコンテストはすでに登録されています"});
