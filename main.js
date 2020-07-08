@@ -157,7 +157,7 @@ app.post("/submit",async(req,res)=>{
 	//insertを呼び出す
 	new Promise(async(resolve, reject) => {
 		await request({
-		    contest_url: base_url_localhost + "/insert",
+		    contest_url: base_url + "/insert",
 		    method: 'POST',
 		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
 		}, function (error, response, body) {
@@ -191,7 +191,7 @@ app.post("/insert",async(req,res) =>{
 	const access_url = hackerrank_url + contest_url;
 	new Promise(async(resolve, reject) => {
 		await request({
-			url: base_url_localhost + "/fetchContest",
+			url: base_url + "/fetchContest",
 			method: 'POST',
 			json:{"url":access_url}
 		}, function (error, response, body) {
