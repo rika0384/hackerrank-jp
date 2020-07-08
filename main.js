@@ -234,8 +234,9 @@ app.post("/insert",async(req,res) =>{
 				}
 				if(result.rows.length > 0){
 					//コンテストがすでに登録されているのでエラーを出す
-					res.send({"message":"このコンテストはすでに登録されています"});
+					return res.send({"message":"このコンテストはすでに登録されています"});
 				}else{
+					console.log("DBにinsertする")
 					//DBにinsertする
 					if(writer.length == 0 || writer[0].length == 0){
 						writer = ["?"];
@@ -247,7 +248,7 @@ app.post("/insert",async(req,res) =>{
 								console.log("insert失敗" + err);
 								throw new Error(err);
 							}else{
-								res.send({"message":"コンテストが登録されました"});
+								return res.send({"message":"コンテストが登録されました"});
 							}
 						});
 					}
