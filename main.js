@@ -161,7 +161,7 @@ app.post("/submit",async(req,res)=>{
 		    method: 'POST',
 		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
 		}, function (error, response, body) {
-			if(err)console.log(error)
+			if(error)console.log(error)
 			if(response == undefined){
 				console.log("submit response undefined");
 				return res.render('./add.ejs',{
