@@ -157,7 +157,7 @@ app.post("/submit",async(req,res)=>{
 	//insertを呼び出す
 	new Promise(async(resolve, reject) => {
 		await request({
-		    contest_url: base_url + "/insert",
+		    url: base_url + "/insert",
 		    method: 'POST',
 		    json:{"contest_url":req.body.contest_url,"writer":req.body.writer}
 		}, function (error, response, body) {
