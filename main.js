@@ -245,6 +245,7 @@ app.post("/insert",async(req,res) =>{
 						[contest_name, contest_url, start_time, end_time, duration, writer], (err, result) => {
 							if(err){
 								console.log("insert失敗" + err);
+								throw new Error(err);
 							}else{
 								res.send({"message":"コンテストが登録されました"});
 							}
