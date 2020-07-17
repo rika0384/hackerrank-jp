@@ -116,4 +116,6 @@ body,p{
     -moz-transform: rotateY( 180deg );
     -ms-transform: rotateY( 180deg );
     transform: rotateY( 180deg );
+    width: 80%;
+    margin: 0 auto;
 }
