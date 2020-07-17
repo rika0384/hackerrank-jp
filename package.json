@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rika0384/hackerrank-jp#readme",
   "dependencies": {
+    "@ionic/app-scripts": "^3.2.4",
     "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.3",
