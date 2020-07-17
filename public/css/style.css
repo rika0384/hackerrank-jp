@@ -65,8 +65,8 @@ body,p{
     float:left;
     margin: 2em 8em;
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     cursor: pointer;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
@@ -88,7 +88,10 @@ body,p{
     -ms-backface-visibility:     hidden;
     backface-visibility:     hidden;
 }
-
+.flip-boards .board h2{
+    margin-top:80px;
+    font-size: 1em;
+}
 .flip-boards .board.top:hover
 {
     -webkit-transform: rotateX( 180deg );
@@ -116,6 +119,4 @@ body,p{
     -moz-transform: rotateY( 180deg );
     -ms-transform: rotateY( 180deg );
     transform: rotateY( 180deg );
-    width: 80%;
-    margin: 0 auto;
 }
